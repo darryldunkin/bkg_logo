@@ -89,7 +89,7 @@ module buckle(width = 1, rotate = 0, offset) {
           square([4, 2.5], center=true);
           translate([2,0,0])
             circle(d=2.5, $fn = 20);
-        }
+        }      
         difference() {
           // Rounded outside
           offset(thickness)
