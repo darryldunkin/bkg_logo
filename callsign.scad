@@ -2,34 +2,37 @@ bkg_logo(
   callsign = "KM7BUM", // Registered callsign
   number = "14",       // Official BKG number
   freq = "144.052",    // Optional QSY
-  type = "buckle",      // Chain, strap (vertical), or buckle (horzontal)
-  strap = 2, size=70);
+  type = "chain",      // Chain, strap (vertical), or buckle (horzontal)
+  strap = 1,
+  size = 70, height = 4);
 
 module bkg_logo(callsign, number,
                 size = 70, height = 5,
                 freq = "144.025", type = "chain", strap = 1) {
   mid = height/2; // Mid-point
-  // Base
-  cylinder(h=2.5, d=size, center=true, $fn = 100);
 
-  if (type == "buckle") {
-    buckle(width = strap, offset = (size/2)-4, rotate = 90);
-  }
-  else if (type == "strap") {
-    buckle(width = strap, offset = (size/2)-4, rotate = 0);
-  } else {
-    // Default chain
-    rings(offset = size/2);
-  }
+  // The base is 60%
+  cylinder(h=height*0.6, d=size, $fn = 100);
 
-  // Overlay
+  // Accessories
   linear_extrude(mid) {
+    if (type == "buckle") {
+      buckle(width = strap, offset = (size/2)-4, rotate = 90);
+    }
+    else if (type == "strap") {
+      buckle(width = strap, offset = (size/2)-4, rotate = 0);
+    } else {
+      // Default chain
+      rings(height = height/2, offset = size/2);
+    }
+  }
+
+  linear_extrude(height)
     resize([size*0.98, size*0.98]) {
       frequency(freq);
       callsign(callsign, number);
       import("bkg-frequency.svg", center=true);
     }
-  }
 }
 
 module callsign(callsign, number) {
@@ -57,8 +60,8 @@ module rings(size = 5, height = 2.5, offset = 0) {
     rotate([0, 0, +120])
       translate([offset,0,-height/2])
         difference() {
-          cylinder(h = height, r = size);
-          translate([0,0,-.1]) cylinder(h = height+0.2, r = size*0.7);
+          circle(r = size);
+          translate([0,0,-.1]) circle(r = size*0.7);
         }
 }
 
@@ -72,9 +75,9 @@ module copy_mirror() {
 module buckle(width = 1, rotate = 0, offset) {
   width = width * 25.4; // Convert to mm
   thickness = 5;        // 5mm around the outside
-  radius = 0.5;           // Roundness
-  length = 30;          // How far into the disc we go          
-
+  radius = 0.5;         // Roundness
+  length = 30;          // How far into the disc we go
+  rotate([0, 0, rotate])
     rotate_mirror() {
       translate([0, offset, 0]) {
         // Retainer notch - Fixed width and depth
@@ -92,8 +95,8 @@ module buckle(width = 1, rotate = 0, offset) {
             square([width, 7], center=true);
           // Strap gap - 2.5mm
           translate([-thickness, 6]) square([width+(thickness*2), 2.5], center=true);
-       }
-     }
+        }
+      }
     }
 }
 
