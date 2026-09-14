@@ -1,10 +1,13 @@
 bkg_logo(
-  callsign = "KM7BUM", // Registered callsign
-  number = "14",       // Official BKG number
-  freq = "144.052",    // Optional QSY
-  type = "chain",      // Chain, strap (vertical), or buckle (horzontal)
-  strap = 1,
-  size = 70, height = 4);
+  callsign = "KM7BUM",     // Registered callsign
+  number   = "14",         // Official BKG number
+  freq     = "144.052",    // Optional QSY
+  size     = 70,           // Size in mm
+  height   = 4,            // Thickness in mm
+  // Chain, strap (vertical), or buckle (horzontal)
+  type     = "chain",
+  // Strap/belt width in inches
+  strap = 1);
 
 module bkg_logo(callsign, number,
                 size = 70, height = 5,
