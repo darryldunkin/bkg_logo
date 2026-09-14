@@ -5,7 +5,7 @@ bkg_logo(
   size     = 70,          // Size in mm
   height   = 2.5,          // Thickness in mm
   // Chain, strap (vertical), buckle (horzontal) or coin (default)
-  type     = "buckle",
+  type     = "coin",
   // Strap/belt width in inches
   strap = 0.75);
 
@@ -14,9 +14,9 @@ module bkg_logo(callsign, number,
                 freq = "144.025", type = "coin", strap = 1) {
   mid = height * 0.8; // Mid-point
 
-  // Base and accessories are extruded
+  cylinder(d = size, h = mid, $fn = 64);
+  // Logo, text and accessories are extruded
   linear_extrude(mid) {
-    circle(d = size, $fn = 64);
     if (type == "buckle") {
       buckle(width = strap, offset = (size/2)-8, rotate = 90);
     }
@@ -32,7 +32,7 @@ module bkg_logo(callsign, number,
 
   // The badge itself
   // Components are arranged in relation to the SVG before being resized
-  linear_extrude(height)
+  translate([0, 0, mid]) linear_extrude(height-mid)
     resize([size*0.98, size*0.98]) {
       frequency(freq);
       callsign(callsign, number);
