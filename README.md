@@ -1,11 +1,11 @@
 # BKG Logo Generator
 
-An OpenSCAD module for generating a BKG logo.
+An OpenSCAD module for generating a BKG logo and accessories.
 
 ## Usage
 
 1. Install OpenSCAD
-2. Open the file **callsign.scad**
+2. Open the file **bkglogo.scad**
 3. Change any parameters on the top, press **F5** to preview
 4. When it looks good, press **F6** to render, this can take up to 5 minutes
 5. Press **F7** to export the STL
@@ -29,7 +29,7 @@ I used the SVG converter at https://picsvg.com "Internal 3" to generate the sour
 All tested on a Bambu P1S with the default 0.04mm nozzle. The minimum size I generally work with is **7cm**. This gives at least two lines width of printing for the smallest components.
 
 Other settings:
-* Print quality: 0.16mm Optimal
+* Print quality: 0.20 standard
 
 ## TODO
 

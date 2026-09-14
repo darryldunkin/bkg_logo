@@ -3,7 +3,7 @@ bkg_logo(
   number   = "999",         // Official BKG number
   freq     = "144.069",    // Optional QSY
   size     = 70,           // Size in mm
-  height   = 4,            // Thickness in mm
+  height   = 3,            // Thickness in mm
   // Chain, strap (vertical), or buckle (horzontal)
   type     = "buckle",
   // Strap/belt width in inches
@@ -12,13 +12,11 @@ bkg_logo(
 module bkg_logo(callsign, number,
                 size = 70, height = 5,
                 freq = "144.025", type = "chain", strap = 1) {
-  mid = height/2; // Mid-point
+  mid = height * 0.75; // Mid-point
 
-  // The base is 80%
-  cylinder(h=height*0.7, d=size, $fn = 128);
-
-  // Accessories
+  // Base and accessories are extruded
   linear_extrude(mid) {
+    circle(d = size, $fn = 64);
     if (type == "buckle") {
       buckle(width = strap, offset = (size/2)-4, rotate = 90);
     }
@@ -31,8 +29,7 @@ module bkg_logo(callsign, number,
   }
 
   // The badge itself
-  
-  translate([0, 0, height*.7]) linear_extrude(height*.3)
+  linear_extrude(height)
     resize([size*0.98, size*0.98]) {
       frequency(freq);
       callsign(callsign, number);
@@ -60,13 +57,12 @@ module frequency(freq = "144.025"){
 
 // Generate rings to hang from
 module rings(size = 5, height = 2.5, offset = 0) {
-  $fn = 50;
   copy_mirror()
     rotate([0, 0, +120])
       translate([offset,0,-height/2])
         difference() {
-          circle(r = size);
-          translate([0,0,-.1]) circle(r = size*0.7);
+          circle(r = size, $fn = 50);
+          translate([0,0,-.1]) circle(r = size*0.7, $fn = 50);
         }
 }
 
