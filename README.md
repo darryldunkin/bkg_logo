@@ -28,11 +28,10 @@ I used the SVG converter at https://picsvg.com "Internal 3" to generate the sour
 
 All tested on a Bambu P1S with the default 0.04mm nozzle. The minimum size I generally work with is **7cm**. This gives at least two lines width of printing for the smallest components.
 
-Other settings:
-* Print quality: 0.20 standard
+* Size: As big as your print bed can handle, aware of accessories - printing at 45 degrees may give you enough room for clips or other attachments if you are going big
+* Print quality: 0.20 standard works
 
 ## TODO
 
-* Fix the hash sign for smaller prints
-* OG support
+* OG support - Requires a new template
 * Build the entire logo here, so it can be hosted on MakerWorld (does not support svg files)
