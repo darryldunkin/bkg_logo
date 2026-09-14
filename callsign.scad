@@ -15,7 +15,7 @@ module bkg_logo(callsign, number,
   mid = height/2; // Mid-point
 
   // The base is 60%
-  cylinder(h=height*0.6, d=size, $fn = 100);
+  cylinder(h=height*0.6, d=size, $fn = 128);
 
   // Accessories
   linear_extrude(mid) {
@@ -30,6 +30,7 @@ module bkg_logo(callsign, number,
     }
   }
 
+  // The badge itself
   linear_extrude(height)
     resize([size*0.98, size*0.98]) {
       frequency(freq);
@@ -58,7 +59,7 @@ module frequency(freq = "144.025"){
 
 // Generate rings to hang from
 module rings(size = 5, height = 2.5, offset = 0) {
-  $fn = 30;
+  $fn = 50;
   copy_mirror()
     rotate([0, 0, +120])
       translate([offset,0,-height/2])
