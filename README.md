@@ -22,11 +22,14 @@ An OpenSCAD module for generating a BKG logo.
 
 For a 7cm disc, the strap can be 0.5-1", for 1.5" 80mm and 2" 90mm.
 
-## Notes
+## Printing Notes
 
 I used the SVG converter at https://picsvg.com "Internal 3" to generate the source image.
 
 All tested on a Bambu P1S with the default 0.04mm nozzle. The minimum size I generally work with is **7cm**. This gives at least two lines width of printing for the smallest components.
+
+Other settings:
+* Print quality: 0.16mm Optimal
 
 ## TODO
 

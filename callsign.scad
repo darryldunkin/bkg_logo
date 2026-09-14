@@ -1,21 +1,21 @@
 bkg_logo(
-  callsign = "KM7BUM",     // Registered callsign
-  number   = "14",         // Official BKG number
-  freq     = "144.052",    // Optional QSY
+  callsign = "KD9ZZK",     // Registered callsign
+  number   = "999",         // Official BKG number
+  freq     = "144.069",    // Optional QSY
   size     = 70,           // Size in mm
   height   = 4,            // Thickness in mm
   // Chain, strap (vertical), or buckle (horzontal)
-  type     = "chain",
+  type     = "buckle",
   // Strap/belt width in inches
-  strap = 1);
+  strap = 0.75);
 
 module bkg_logo(callsign, number,
                 size = 70, height = 5,
                 freq = "144.025", type = "chain", strap = 1) {
   mid = height/2; // Mid-point
 
-  // The base is 60%
-  cylinder(h=height*0.6, d=size, $fn = 128);
+  // The base is 80%
+  cylinder(h=height*0.7, d=size, $fn = 128);
 
   // Accessories
   linear_extrude(mid) {
@@ -31,7 +31,8 @@ module bkg_logo(callsign, number,
   }
 
   // The badge itself
-  linear_extrude(height)
+  
+  translate([0, 0, height*.7]) linear_extrude(height*.3)
     resize([size*0.98, size*0.98]) {
       frequency(freq);
       callsign(callsign, number);
