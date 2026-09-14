@@ -1,11 +1,11 @@
 bkg_logo(
   callsign = "KD9ZZK",     // Registered callsign
-  number   = "999",         // Official BKG number
+  number   = "999",        // Official BKG number
   freq     = "144.069",    // Optional QSY
   size     = 70,           // Size in mm
   height   = 3,            // Thickness in mm
-  // Chain, strap (vertical), or buckle (horzontal)
-  type     = "buckle",
+  // Chain, strap (vertical), buckle (horzontal) or coin (default)
+  type     = "chain",
   // Strap/belt width in inches
   strap = 0.75);
 
@@ -22,24 +22,27 @@ module bkg_logo(callsign, number,
     }
     else if (type == "strap") {
       buckle(width = strap, offset = (size/2)-4, rotate = 0);
+    }
+    else if (type == "chain") {
+      rings(height = height/2, offset = size/2+3);
     } else {
-      // Default chain
-      rings(height = height/2, offset = size/2);
+      // Default coin, no accessories
     }
   }
 
   // The badge itself
+  // Components are arragned in relation to the SVG before being resized
   linear_extrude(height)
     resize([size*0.98, size*0.98]) {
       frequency(freq);
       callsign(callsign, number);
-      import("bkg-frequency.svg", center=true);
+      import("bkglogo.svg", center=true);
     }
 }
 
 module callsign(callsign, number) {
   translate([0,-65])
-    text(str("- ",callsign," | #",number," -"), size = 30, halign = "center", valign = "center", font="Ebrima:bold");
+    text(str(callsign," | #",number), size = 35, halign = "center", valign = "center", font="Ebrima:bold");
 }
 
 module frequency(freq = "144.025"){
@@ -56,7 +59,7 @@ module frequency(freq = "144.025"){
 }
 
 // Generate rings to hang from
-module rings(size = 5, height = 2.5, offset = 0) {
+module rings(size = 10, height = 2.5, offset = 0) {
   copy_mirror()
     rotate([0, 0, +120])
       translate([offset,0,-height/2])
@@ -66,7 +69,7 @@ module rings(size = 5, height = 2.5, offset = 0) {
         }
 }
 
-// Mirror a copy of the rings
+// Mirror a copy of the first ring to the other side
 module copy_mirror() {
   children();
   mirror([1,0,0]) children();
