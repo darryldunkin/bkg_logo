@@ -15,7 +15,7 @@ An OpenSCAD module for generating a BKG logo and accessories.
 ### Optional Flags
 
 * size - The size in mm of the base badge, before accessories
-* height - The thickness of the overall badge
+* height - The thickness of the overall badge, smaller ones are good at 2.5mm larger ones may require more support
 * type - "buckle" for a belt buckle, "strap" for a vertical strap, "chain" for hanging. Default is "coin" or no accessories
 * strap_width - If you are generating a strap or buckle, this is the width of the inside for your strap or belt. 0.5-3" is a normal range
 * freq - Frequency, this should be in the format of **###.###*** to fill the space the best
@@ -33,6 +33,6 @@ All tested on a Bambu P1S with the default 0.04mm nozzle. The minimum size I gen
 
 ## TODO
 
-* Efficiency - Render times are 10 minutes, primarily due to the complex SVG generated from a PNG. Generating raw elements will save a lot of space.
+* Efficiency - Render times are 10 minutes, primarily due to the complex SVG generated from a PNG. Generating raw elements will save a lot of space and improve quality at-scale.
 * OG support - Requires a new template
 * Build the entire logo here, so it can be hosted on MakerWorld (does not support svg files)

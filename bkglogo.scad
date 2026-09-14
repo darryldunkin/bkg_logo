@@ -2,23 +2,23 @@ bkg_logo(
   callsign = "KD9ZZK",     // Registered callsign
   number   = "999",        // Official BKG number
   freq     = "144.069",    // Optional QSY
-  size     = 70,           // Size in mm
-  height   = 3,            // Thickness in mm
+  size     = 70,          // Size in mm
+  height   = 2.5,          // Thickness in mm
   // Chain, strap (vertical), buckle (horzontal) or coin (default)
-  type     = "chain",
+  type     = "buckle",
   // Strap/belt width in inches
   strap = 0.75);
 
 module bkg_logo(callsign, number,
                 size = 70, height = 5,
-                freq = "144.025", type = "chain", strap = 1) {
-  mid = height * 0.75; // Mid-point
+                freq = "144.025", type = "coin", strap = 1) {
+  mid = height * 0.8; // Mid-point
 
   // Base and accessories are extruded
   linear_extrude(mid) {
     circle(d = size, $fn = 64);
     if (type == "buckle") {
-      buckle(width = strap, offset = (size/2)-4, rotate = 90);
+      buckle(width = strap, offset = (size/2)-8, rotate = 90);
     }
     else if (type == "strap") {
       buckle(width = strap, offset = (size/2)-4, rotate = 0);
@@ -31,7 +31,7 @@ module bkg_logo(callsign, number,
   }
 
   // The badge itself
-  // Components are arragned in relation to the SVG before being resized
+  // Components are arranged in relation to the SVG before being resized
   linear_extrude(height)
     resize([size*0.98, size*0.98]) {
       frequency(freq);
@@ -78,27 +78,27 @@ module copy_mirror() {
 // Generate variable-width buckles, strap width in inches
 module buckle(width = 1, rotate = 0, offset) {
   width = width * 25.4; // Convert to mm
-  thickness = 5;        // 5mm around the outside
-  radius = 0.5;         // Roundness
+  thickness = 5;        // Width around the outside
+  radius = 1;           // Roundness
   length = 30;          // How far into the disc we go
   rotate([0, 0, rotate])
     rotate_mirror() {
       translate([0, offset, 0]) {
         // Retainer notch - Fixed width and depth
-        translate([-width/2+1, 8.5, 0]) {
-          square([3, 2.5], center=true);
-          translate([1.5,0,0])
+        translate([-width/2-1, 11, 0]) {
+          square([4, 2.5], center=true);
+          translate([2,0,0])
             circle(d=2.5, $fn = 20);
         }      
         difference() {
           // Rounded outside
           offset(thickness)
-            square([(width+thickness) - 5*radius, length - 5*radius], center=true);
-          // Inside space for strap - 7mm
-          translate([0, 15-thickness, 0])
-            square([width, 7], center=true);
+            square([(width+thickness) - 2*radius, length - 2*radius], center=true);
+          // Inside space for strap - 6mm
+          translate([0, 17-thickness, 0])
+            square([width+6, 7], center=true);
           // Strap gap - 2.5mm
-          translate([-thickness, 6]) square([width+(thickness*2), 2.5], center=true);
+          translate([-thickness+3, 8.5]) square([width+(thickness*2), 2.5], center=true);
         }
       }
     }
