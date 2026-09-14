@@ -16,8 +16,8 @@ An OpenSCAD module for generating a BKG logo and accessories.
 
 * size - The size in mm of the base badge, before accessories
 * height - The thickness of the overall badge
-* type - "buckle" for a belt buckle, "strap" for a vertical strap or "chain" for hanging
-* strap_width - If you are generating a buckle, this is the width of the inside for your strap or belt
+* type - "buckle" for a belt buckle, "strap" for a vertical strap, "chain" for hanging. Default is "coin" or no accessories
+* strap_width - If you are generating a strap or buckle, this is the width of the inside for your strap or belt. 0.5-3" is a normal range
 * freq - Frequency, this should be in the format of **###.###*** to fill the space the best
 
 For a 7cm disc, the strap can be 0.5-1", for 1.5" 80mm and 2" 90mm.
