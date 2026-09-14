@@ -33,5 +33,6 @@ All tested on a Bambu P1S with the default 0.04mm nozzle. The minimum size I gen
 
 ## TODO
 
+* Efficiency - Render times are 10 minutes, primarily due to the complex SVG generated from a PNG. Generating raw elements will save a lot of space.
 * OG support - Requires a new template
 * Build the entire logo here, so it can be hosted on MakerWorld (does not support svg files)
