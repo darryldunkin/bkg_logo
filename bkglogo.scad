@@ -33,7 +33,7 @@ module bkg_logo(callsign, number,
                 freq = "144.025", type = "coin", strap = 1) {
   mid = height * 0.8; // Mid-point
 
-  //cylinder(d = size, h = mid, $fn = 64);
+  cylinder(d = size, h = mid, $fn = 64);
   // Logo, text and accessories are extruded
   linear_extrude(mid) {
     if (type == "buckle") {
@@ -53,8 +53,7 @@ module bkg_logo(callsign, number,
   // Components are arranged in relation to the SVG before being resized
   translate([0, 0, mid]) linear_extrude(height-mid)
     resize([size*0.98, size*0.98]) {
-      curved_text(freq, "NanumGothic:bold", 36, 1, -41, 7, -260);
-      curved_text("MHz", "NanumGothic:bold", 36, 1, 20, 47, -260);
+      curved_text(freq, "MS UI Gothic:bold", 36, 1, -41, 7, -260);
       callsign(callsign, number);
       badge();
     }
@@ -163,5 +162,8 @@ module badge() {
   curved_line(204, 224, 4, 240);
   curved_line(316, 336, 4, 240);
   ring(422, 16);
-  curved_text("BRASS KNUCKLE GANG", "MS UI Gothic:bold", 45, 1, 77, -89, 224);
+  curved_text("BRASS KNUCKLE GANG", "Verdana", 45, 1, 77, -89, 224);
+  curved_text("MHz", "Verdana", 36, 1, 20, 47, -260);
+  translate([0,-135])
+    text("BKG", size = 65, halign = "center", valign = "center", font="Cambria Math");
 }
