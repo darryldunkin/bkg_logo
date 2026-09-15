@@ -4,6 +4,8 @@ An OpenSCAD module for generating a BKG logo and accessories.
 
 Recommend using the latest development snapshots: https://openscad.org/downloads.html#snapshots
 
+This tool was used to convert the complex shapes to paths: https://printnexus.io/tools/svg-to-openscad-converter
+
 ## Usage
 
 1. Install OpenSCAD
@@ -26,7 +28,6 @@ For a 7cm disc, the strap can be 0.5-1", for 1.5" 80mm and 2" 90mm.
 
 ## Printing Notes
 
-I used the SVG converter at https://picsvg.com "Internal 3" to generate the source image.
 
 All tested on a Bambu P1S with the default 0.04mm nozzle. The minimum size I generally work with is **7cm**. This gives at least two lines width of printing for the smallest components.
 
@@ -35,6 +36,4 @@ All tested on a Bambu P1S with the default 0.04mm nozzle. The minimum size I gen
 
 ## TODO
 
-* Efficiency - Render times are 10 minutes, primarily due to the complex SVG generated from a PNG. Generating raw elements will save a lot of space and improve quality at-scale.
 * OG support - Requires a new template
-* Build the entire logo here, so it can be hosted on MakerWorld (does not support svg files)
