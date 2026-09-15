@@ -2,11 +2,13 @@
 
 An OpenSCAD module for generating a BKG logo and accessories.
 
+Recommend using the latest development snapshots: https://openscad.org/downloads.html#snapshots
+
 ## Usage
 
 1. Install OpenSCAD
 2. Open the file **bkglogo.scad**
-3. Change any parameters on the top, press **F5** to preview
+3. Change any parameters in the customizer and press *F5* to refresh
 4. When it looks good, press **F6** to render, this can take up to 5 minutes
 5. Press **F7** to export the STL
 6. Import the STL into your slicer, color it
