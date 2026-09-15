@@ -1,13 +1,32 @@
+/* [Personalization] */
+// Your registered callsign
+callsign = "KD9ZZK"; 
+// Your BKG number
+number = 14;
+// The frequency to display
+freq = "144.025";
+
+/* [Sizing] */
+// The size in mm
+size      = 70; // [70:256]
+// How thick to print it
+thickness = 2.5; // [2:8]
+
+/* [Style] */
+// Any attached accessories
+type = "coin"; // [chain, strap, buckle, coin]
+// How wide the strap is (for strap/buckle)
+strap_width = 1; // [0.5:3]
+
+// Translate UI variables to module
 bkg_logo(
-  callsign = "KD9ZZK",     // Registered callsign
-  number   = "999",        // Official BKG number
-  freq     = "144.069",    // Optional QSY
-  size     = 70,          // Size in mm
-  height   = 2.5,          // Thickness in mm
-  // Chain, strap (vertical), buckle (horzontal) or coin (default)
-  type     = "coin",
-  // Strap/belt width in inches
-  strap = 0.75);
+  callsign = callsign,
+  number   = number,
+  freq     = freq,
+  size     = size,
+  height   = thickness,
+  type     = type,
+  strap    = strap_width);
 
 module bkg_logo(callsign, number,
                 size = 70, height = 5,
@@ -34,7 +53,7 @@ module bkg_logo(callsign, number,
   // Components are arranged in relation to the SVG before being resized
   translate([0, 0, mid]) linear_extrude(height-mid)
     resize([size*0.98, size*0.98]) {
-      curved_text(freq, "NanumGothic:bold", 36, 1, -42, 7, -258);
+      curved_text(freq, "NanumGothic:bold", 36, 1, -42, 7, -245);
       callsign(callsign, number);
       badge();
     }
@@ -45,16 +64,15 @@ module callsign(callsign, number) {
     text(str(callsign," | #",number), size = 35, halign = "center", valign = "center", font="Ebrima:bold");
 }
 
+// Curve text around the center, positive direction for cw, neg for ccw
 module curved_text(string, font, size, spacing, start, end, offset){
   length = len(string);
-  // Fill degrees -42 to 7 = 49 total
-  degrees = (end - start) / length; // Degrees of spacing
+  degrees = ((end - start) / length); // Degrees of spacing per-character
   for (i = [0 : length - 1]) {
     rotate([0, 0, (start+(degrees*i))])
-      // Offset from center
       translate([0,offset])
-       //rotate([0, 0, ((1*i))]) // Rotation offset
-        text(string[i], font = font, spacing = spacing, size = size);
+           text(string[i], font = font, spacing = spacing, size = size,
+                valign = "center", halign = "center");
   }
 }
 
@@ -112,8 +130,20 @@ module rotate_mirror() {
       children();
 }
 
+// Ring
+module ring(size, width) {
+  $fn = 64;
+  difference() {
+    circle(d = size);
+    circle(d = size - width);
+  }
+}
+
 // The stock elements that do not change
 module badge() {
-  curved_text("BRASS KNUCKLE GANG", "Franklin Gothic", 45, 1, 82, -83, 225);
   import("bkglogo.svg", center=true);
+  //ring(610, 25);
+  ring(571, 16);
+  ring(422, 16);
+  curved_text("BRASS KNUCKLE GANG", "MS UI Gothic:bold", 45, 1, 77, -89, 245);
 }
