@@ -53,7 +53,8 @@ module bkg_logo(callsign, number,
   // Components are arranged in relation to the SVG before being resized
   translate([0, 0, mid]) linear_extrude(height-mid)
     resize([size*0.98, size*0.98]) {
-      curved_text(freq, "NanumGothic:bold", 36, 1, -42, 7, -245);
+      curved_text(freq, "NanumGothic:bold", 36, 1, -41, 7, -260);
+      curved_text("MHz", "NanumGothic:bold", 36, 1, 20, 47, -260);
       callsign(callsign, number);
       badge();
     }
@@ -71,8 +72,23 @@ module curved_text(string, font, size, spacing, start, end, offset){
   for (i = [0 : length - 1]) {
     rotate([0, 0, (start+(degrees*i))])
       translate([0,offset])
-           text(string[i], font = font, spacing = spacing, size = size,
-                valign = "center", halign = "center");
+           text(string[i], font = font, spacing = spacing, size = size, halign = "center");
+  }
+}
+
+// Curved line - Assume CW rotation
+module curved_line(start, end, width, offset) {
+  steps = (end - start)/width; // Smoothness
+  for (i = [0 : steps - 1]) {
+    a1 = start + (end - start) * (i / steps);
+    a2 = start + (end - start) * ((i+1) / steps);
+    
+    hull() {
+        translate([offset * cos(a1), offset * sin(a1), 0]) 
+            circle(r = width);
+        translate([offset * cos(a2), offset * sin(a2), 0]) 
+            circle(r = width);
+    }
   }
 }
 
@@ -141,9 +157,11 @@ module ring(size, width) {
 
 // The stock elements that do not change
 module badge() {
-  import("bkglogo.svg", center=true);
-  //ring(610, 25);
+  //import("bkglogo.svg", center=true);
+  ring(610, 25);
   ring(571, 16);
+  curved_line(204, 224, 4, 240);
+  curved_line(316, 336, 4, 240);
   ring(422, 16);
-  curved_text("BRASS KNUCKLE GANG", "MS UI Gothic:bold", 45, 1, 77, -89, 245);
+  curved_text("BRASS KNUCKLE GANG", "MS UI Gothic:bold", 45, 1, 77, -89, 224);
 }
