@@ -45,10 +45,11 @@ module bkg_logo(callsign, number, size, height, freq, type, strap) {
       resize([size+2.2,size+15])
         import("bkglogo.svg", center=true);
   */
-  cylinder(d = size, h = mid, $fn = 128);
+  color("black")
+    cylinder(d = size, h = mid, $fn = 128);
 
   // Logo, text and accessories are extruded separately
-  linear_extrude(mid) {
+  color("black") linear_extrude(mid) {
     if (type == "buckle") {
       buckle(width = strap, offset = (size/2)-8, rotate = 90);
     }
@@ -79,13 +80,13 @@ module badge() {
   knuckle();
   ring(600, 26);
   ring(558, 14);
+  ring(400, 14);
   curved_line(203, 219, 4, 234);
   curved_line(317, 336, 4, 234);
   curved_text("BRASS KNUCKLE GANG", "Chivo:bold", 44, 1, 80, -93, 216);
   curved_text("MHz", "Chivo", 36, 1, 19.7, 47, -252);
-  ring(400, 14);
   translate([0,-127])
-    text("BKG", size = 71, halign = "center", valign = "center", font="Cambria Math:bold", spacing = 1.1);
+    text("BKG", size = 71, halign = "center", valign = "center", font= "Cambria Math:bold", spacing = 1.1);
 }
 
 // Curve text around the center, positive direction for cw, neg for ccw
