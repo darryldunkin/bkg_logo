@@ -28,7 +28,6 @@ For a 7cm disc, the strap can be 0.5-1", for 1.5" 80mm and 2" 90mm.
 
 ## Printing Notes
 
-
 All tested on a Bambu P1S with the default 0.04mm nozzle. The minimum size I generally work with is **7cm**. This gives at least two lines width of printing for the smallest components.
 
 * Size: As big as your print bed can handle, aware of accessories - printing at 45 degrees may give you enough room for clips or other attachments if you are going big
@@ -36,4 +35,4 @@ All tested on a Bambu P1S with the default 0.04mm nozzle. The minimum size I gen
 
 ## TODO
 
-* OG support - Requires a new template
+* OG support - This can be optional, the outline just needs to be drawn.
