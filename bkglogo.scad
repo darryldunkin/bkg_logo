@@ -31,7 +31,7 @@ module core_model() {
   mid = height * ratio; // Mid-point
 
   // Reference image from original SVG for placement
-  reference_logo();
+  // reference_logo();
   color("black")
     cylinder(d = size, h = mid, $fn = 128);
 
