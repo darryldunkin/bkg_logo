@@ -10,10 +10,11 @@ This tool was used to convert the complex shapes to paths: https://printnexus.io
 
 1. Install OpenSCAD
 2. Open the file **bkglogo.scad**
-3. Change any parameters in the customizer and press *F5* to refresh
+3. Change any parameters in the customizer, if **Automatic Pefresh** is checked, the preview will update immediately
 4. When it looks good, press **F6** to render, this can take up to 5 minutes
 5. Press **F7** to export the STL
-6. Import the STL into your slicer, color it
+6. Import the STL into your slicer
+8. Color it.
 7. Print it!
 
 ### Optional Flags
