@@ -34,6 +34,11 @@ All tested on a Bambu P1S with the default 0.04mm nozzle. The minimum size I gen
 * Size: As big as your print bed can handle, aware of accessories - printing at 45 degrees may give you enough room for clips or other attachments if you are going big
 * Print quality: 0.20 standard works
 
+# Development Notes
+
+The parametric model maker is mysterious, here are some hidden features:
+https://github.com/nelsonjchen/unofficial-makerworld-parametric-model-maker-openscad-docs/blob/main/docs/pmm-openscad-api.md
+
 ## TODO
 
 * OG support - This can be optional, the outline just needs to be drawn.
