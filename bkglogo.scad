@@ -10,7 +10,7 @@ freq = "144.025";    // 8
 // The size in mm
 size = 70;           // [70:256]
 // How thick to print in total
-thickness = 2.5;     // [2:8]
+height = 2.5;     // [2:8]
 // How tall the image is in comparison to the base
 ratio = 0.8;         //[0.5:.9]
 
@@ -21,43 +21,30 @@ type = "coin";       // [coin, chain, strap, buckle]
 strap_width = 1;     // [0.25:3]
 
 // Default viewpoint for preview
-$vpr = [51, 0, 324];
-$vpt = [1.4, 2.8, 3.1];
-$vpd = 160;
+//$vpr = [51, 0, 324]; $vpt = [1.4, 2.8, 3.1]; $vpd = 160;
 
-// Translate UI variables to module variables
-bkg_logo(
-  callsign = callsign,
-  number   = number,
-  freq     = freq,
-  size     = size,
-  height   = thickness,
-  type     = type,
-  strap    = strap_width);
+// Top-down viewpoint for alignment
+$vpr = [0, 0, 0]; $vpt = [0, 0, 0]; $vpd = 160;
 
 // The primary module itself
-module bkg_logo(callsign, number, size, height, freq, type, strap) {
-  mid = height * 0.8; // Mid-point
+module core_model() {
+  mid = height * ratio; // Mid-point
 
   // Reference image from original SVG for placement
-  /*
-  # translate([0, -0, height]) linear_extrude(1)
-      resize([size+2.2,size+15])
-        import("bkglogo.svg", center=true);
-  */
+  reference_logo();
   color("black")
     cylinder(d = size, h = mid, $fn = 128);
 
   // Logo, text and accessories are extruded separately
   color("black") linear_extrude(mid) {
     if (type == "buckle") {
-      buckle(width = strap, offset = (size/2)-8, rotate = 90);
+      buckle(width = strap_width, offset = (size/2)-8, rotate = 90);
     }
     else if (type == "strap") {
-      buckle(width = strap, offset = (size/2)-4, rotate = 0);
+      buckle(width = strap_width, offset = (size/2)-4, rotate = 0);
     }
     else if (type == "chain") {
-      rings(height = height/2, offset = size/2+3);
+      chain(height = mid, offset = size/2+3);
     } else {
       // Default coin, no accessories
     }
@@ -75,6 +62,14 @@ module bkg_logo(callsign, number, size, height, freq, type, strap) {
     }
 }
 
+module reference_logo() {
+  // Top-down 
+
+  # translate([0, -0, height]) linear_extrude(1)
+      resize([size+2.2,size+15])
+        import("bkglogo.svg", center=true);
+}
+
 // The static elements that do not change
 module badge() {
   knuckle();
@@ -86,7 +81,7 @@ module badge() {
   curved_text("BRASS KNUCKLE GANG", "Chivo:bold", 44, 1, 80, -93, 216);
   curved_text("MHz", "Chivo", 36, 1, 19.7, 47, -252);
   translate([0,-127])
-    text("BKG", size = 71, halign = "center", valign = "center", font= "Cambria Math:bold", spacing = 1.1);
+    text("BKG", size = 70, halign = "center", valign = "center", font= "Rosario:bold", spacing = 1.1);
 }
 
 // Curve text around the center, positive direction for cw, neg for ccw
@@ -141,7 +136,7 @@ module knuckle() {
 }
 
 // Generate rings to hang from
-module rings(size = 10, height = 2.5, offset = 0) {
+module chain(size = 10, height = 2.5, offset = 0) {
   copy_mirror()
     rotate([0, 0, +120])
       translate([offset,0,-height/2])
@@ -193,3 +188,5 @@ module rotate_mirror() {
     rotate([180, 0, 0])
       children();
 }
+
+core_model();
