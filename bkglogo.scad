@@ -55,7 +55,7 @@ module bkg_logo(callsign, number,
   // Components are arranged in relation to the SVG before being resized
   translate([0, 0, mid]) linear_extrude(height-mid)
     resize([size*0.98, size*0.98]) {
-      curved_text(freq, "MS UI Gothic:bold", 36, 1, -41, 7, -260);
+      curved_text(freq, "Chivo", 36, 1, -41, 7, -254);
       callsign(callsign, number);
       badge();
     }
@@ -63,7 +63,7 @@ module bkg_logo(callsign, number,
 
 module callsign(callsign, number) {
   translate([0,-65])
-    text(str(callsign," | #",number), size = 35, halign = "center", valign = "center", font="Ebrima:bold");
+    text(str(callsign," | #",number), size = 35, halign = "center", valign = "center", font="Chivo:bold");
 }
 
 // Curve text around the center, positive direction for cw, neg for ccw
@@ -181,11 +181,11 @@ module reference_image() {
 module badge() {
   knuckle();
   ring(600, 26);
-  ring(564, 24);
+  ring(562, 24);
   curved_line(203, 219, 4, 235);
   curved_line(317, 336, 4, 235);
-  curved_text("BRASS KNUCKLE GANG", "Verdana", 43, 1, 77, -89, 220);
-  curved_text("MHz", "Verdana", 35, 1, 19, 48, -250);
+  curved_text("BRASS KNUCKLE GANG", "Chivo", 38, 1, 77, -89, 218);
+  curved_text("MHz", "Chivo", 35, 1, 19, 48, -254);
   ring(412, 18);
   translate([0,-123])
     text("BKG", size = 68, halign = "center", valign = "center", font="Cambria Math:bold");
