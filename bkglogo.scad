@@ -33,7 +33,7 @@ clr_knuckle = "#FCE300";   // color
 // Default viewpoint for preview
 $vpr = [51, 0, 324]; $vpt = [1.4, 2.8, 3.1]; $vpd = 160;
 // DEBUG - Top-down viewpoint for alignment checking
-// $vpr = [0, 0, 0]; $vpt = [0, 0, 0]; $vpd = 170;
+//$vpr = [0, 0, 0]; $vpt = [0, 0, 0]; $vpd = 200;
 
 // Global variables
 mid = height * ratio; // Mid-point for base
@@ -42,17 +42,17 @@ extrude = height-mid; // Extrude height
 // The primary logic is here
 module core_model() {
   // Reference image from original SVG for placement
-  // reference_logo();
+  reference_logo();
   color(clr_base)
     cylinder(d = size, h = mid, $fn = 128);
 
   // Accessories are extruded separately
   color(clr_base) linear_extrude(mid) {
     if (type == "buckle") {
-      buckle(width = strap_width, offset = (size/2)-8, rotate = 90);
+      buckle(width = strap_width, offset = (size/2)-4, rotate = 90);
     }
     else if (type == "strap") {
-      buckle(width = strap_width, offset = (size/2)-4, rotate = 0);
+      buckle(width = strap_width, offset = (size/2)-6, rotate = 0);
     }
     else if (type == "chain") {
       chain(height = mid, offset = size/2+3);
@@ -169,14 +169,14 @@ module copy_mirror() {
 // Generate variable-width buckles, strap width in inches
 module buckle(width = 1, rotate = 0, offset) {
   width = width * 25.4; // Convert to mm
-  thickness = 5;        // Width around the outside
-  radius = 1;           // Roundness
-  length = 30;          // How far into the disc we go
+  thickness = 7;        // Width around the outside
+  radius = .1;           // Roundness
+  length = 20;          // How far into the disc we go
   rotate([0, 0, rotate])
     rotate_mirror() {
       translate([0, offset, 0]) {
         // Retainer notch - Fixed width and depth
-        translate([-width/2-1, 11, 0]) {
+        translate([-width/2-1, 7.2, 0]) {
           square([4, 2.5], center=true);
           translate([2,0,0])
             circle(d=2.5, $fn = 20);
@@ -185,11 +185,11 @@ module buckle(width = 1, rotate = 0, offset) {
           // Rounded outside
           offset(thickness)
             square([(width+thickness) - 2*radius, length - 2*radius], center=true);
-          // Inside space for strap - 6mm
-          translate([0, 17-thickness, 0])
+          // Inside space for strap - 5mm
+          translate([0, 15-thickness, 0])
             square([width+6, 7], center=true);
           // Strap gap - 2.5mm
-          translate([-thickness+3, 8.5]) square([width+(thickness*2), 2.5], center=true);
+          translate([-thickness+3, 4.7]) square([width+(thickness*2), 2.5], center=true);
         }
       }
     }
