@@ -20,22 +20,34 @@ type = "coin";       // [coin, chain, strap, buckle]
 // How wide the strap is (for strap/buckle)
 strap_width = 1;     // [0.25:3]
 
+/* [Colors] */
+// Base plate and accessories
+clr_base = "#000000";      // color
+// Text
+clr_text = "#FFFFFF";      // color
+// Highlights
+clr_highlights = "#7F7E83";// color
+// Knuckle
+clr_knuckle = "#FCE300";   // color
+
 // Default viewpoint for preview
 $vpr = [51, 0, 324]; $vpt = [1.4, 2.8, 3.1]; $vpd = 160;
 // DEBUG - Top-down viewpoint for alignment checking
 // $vpr = [0, 0, 0]; $vpt = [0, 0, 0]; $vpd = 170;
 
+// Global variables
+mid = height * ratio; // Mid-point for base
+extrude = height-mid; // Extrude height
+
 // The primary logic is here
 module core_model() {
-  mid = height * ratio; // Mid-point
-
   // Reference image from original SVG for placement
   // reference_logo();
-  color("black")
+  color(clr_base)
     cylinder(d = size, h = mid, $fn = 128);
 
-  // Logo, text and accessories are extruded separately
-  color("black") linear_extrude(mid) {
+  // Accessories are extruded separately
+  color(clr_base) linear_extrude(mid) {
     if (type == "buckle") {
       buckle(width = strap_width, offset = (size/2)-8, rotate = 90);
     }
@@ -49,16 +61,10 @@ module core_model() {
     }
   }
 
-  // The badge itself
-  translate([0, 0, mid]) linear_extrude(height-mid)
-    resize([size*0.98, size*0.98]) {
-      // Custom components
-      curved_text(freq, "Chivo", 35, 1, -39, 12, -252);
-      translate([0,-65])
-        text(str(callsign," | #",number), size = 35, halign = "center", valign = "center", font="Chivo:bold");
-      // Static components
+  // The badge itself - Scaled and placed vertically
+  resize([size*0.98, size*0.98])
+    translate([0, 0, mid])
       badge();
-    }
 }
 
 module reference_logo() {
@@ -68,18 +74,28 @@ module reference_logo() {
         import("bkglogo.svg", center=true);
 }
 
-// The static elements that do not change
+// The extruded components, separated by color
 module badge() {
-  knuckle();
-  ring(600, 26);
-  ring(558, 14);
-  ring(400, 14);
-  curved_line(203, 219, 4, 234);
-  curved_line(317, 336, 4, 234);
-  curved_text("BRASS KNUCKLE GANG", "Chivo:bold", 44, 1, 80, -93, 216);
-  curved_text("MHz", "Chivo", 36, 1, 19.7, 47, -252);
-  translate([0,-127])
-    text("BKG", size = 70, halign = "center", valign = "center", font= "Rosario:bold", spacing = 1.1);
+  color(clr_text) linear_extrude(extrude) {
+    // Frequency
+    curved_text(freq, "Chivo", 35, 1, -39, 12, -252);
+    // Callsign
+    translate([0,-65])
+    text(str(callsign," | #",number), size = 35, halign = "center", valign = "center", font="Chivo:bold");
+    curved_text("BRASS KNUCKLE GANG", "Chivo:bold", 44, 1, 80, -93, 216);
+    curved_text("MHz", "Chivo", 36, 1, 19.7, 47, -252);
+  translate([0,-126])
+    text("BKG", size = 65, halign = "center", valign = "center", font= "Rosario:bold", spacing = 1.1);
+  }
+  color(clr_highlights) linear_extrude(extrude) {
+    ring(600, 26);
+    ring(558, 14);
+    ring(400, 14);
+    curved_line(203, 219, 4, 234);
+    curved_line(317, 336, 4, 234);
+  }
+  color(clr_knuckle) linear_extrude(extrude)
+    knuckle();
 }
 
 // Curve text around the center, positive direction for cw, neg for ccw
