@@ -10,9 +10,9 @@ freq = "144.025";    // 8
 // The size in mm
 size = 70;           // [70:256]
 // How thick to print in total
-height = 2.5;     // [2:8]
+height = 2.5;        // [2:8]
 // How tall the image is in comparison to the base
-ratio = 0.8;         //[0.5:.9]
+ratio = 0.7;         //[0.5:.9]
 
 /* [Style] */
 // Any attached accessories
@@ -21,12 +21,11 @@ type = "coin";       // [coin, chain, strap, buckle]
 strap_width = 1;     // [0.25:3]
 
 // Default viewpoint for preview
-//$vpr = [51, 0, 324]; $vpt = [1.4, 2.8, 3.1]; $vpd = 160;
+$vpr = [51, 0, 324]; $vpt = [1.4, 2.8, 3.1]; $vpd = 160;
+// DEBUG - Top-down viewpoint for alignment checking
+// $vpr = [0, 0, 0]; $vpt = [0, 0, 0]; $vpd = 170;
 
-// Top-down viewpoint for alignment
-$vpr = [0, 0, 0]; $vpt = [0, 0, 0]; $vpd = 160;
-
-// The primary module itself
+// The primary logic is here
 module core_model() {
   mid = height * ratio; // Mid-point
 
@@ -64,7 +63,6 @@ module core_model() {
 
 module reference_logo() {
   // Top-down 
-
   # translate([0, -0, height]) linear_extrude(1)
       resize([size+2.2,size+15])
         import("bkglogo.svg", center=true);
