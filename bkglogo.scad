@@ -17,7 +17,7 @@ ratio = 0.7;         // [0.5:0.1:.9]
 /* [Style] */
 // Any attached accessories
 type = "coin";       // [coin, chain, strap, buckle]
-// How wide the strap is (for strap/buckle)
+// How wide the strap is (for strap and buckle)
 strap_width = 1;     // [0.5:0.25:3]
 // Open or closed
 open_strap = true;
