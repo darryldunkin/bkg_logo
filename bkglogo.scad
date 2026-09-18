@@ -94,7 +94,7 @@ module badge() {
     curved_text("KNUCKLE", "Open Sans:bold", 43, 1, 25, -47, 218);
     curved_text("GANG", "Open Sans:bold", 43, 1, -51, -94, 218);
   translate([0,-127])
-    text("BKG", size = 62, halign = "center", valign = "center", font= "Rosario:bold", spacing = 1.06);
+    text("BKG", size = 62, halign = "center", valign = "center", font= "Platypi:bold", spacing = 1.06);
   }
   color(clr_highlights) linear_extrude(extrude) {
     ring(600, 22); // This changes the scale, do not touch
