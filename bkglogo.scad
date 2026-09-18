@@ -2,7 +2,7 @@
 // Your registered callsign
 callsign = "KD9ZZK"; // 6
 // Your BKG number
-number = 15;         // [1:99999]
+number = 1234;       // [1:99999]
 // The frequency to display
 freq = "144.025";    // 7
 
@@ -39,7 +39,7 @@ font_name = "Open Sans:bold";// font
 font_size = 44;              // [10:60]
 
 // Default viewpoint for preview
-$vpr = [51, 0, 324]; $vpt = [1.4, 2.8, 3.1]; $vpd = 300;
+//$vpr = [51, 0, 324]; $vpt = [1.4, 2.8, 3.1]; $vpd = 300;
 // DEBUG - Top-down viewpoint for alignment checking
 //$vpr = [0, 0, 0]; $vpt = [0, 0, 0]; $vpd = 200;
 
@@ -120,9 +120,13 @@ module badge() {
 module curved_text(string, font, size, spacing, start, end, offset){
   length = len(string);
   degrees = ((end - start) / length); // Degrees of spacing per-character
+  correction = 0;
   for (i = [0 : length - 1]) {
+    // Offset the shorter characters
+    correction = string[i] == "." ? -(size/2.5) :
+       (string[i] == "z" ? -(size/8) : 0);
     rotate([0, 0, (start+(degrees*i))])
-      translate([0,offset])
+      translate([0,offset+correction])
            text(string[i], font = font, spacing = spacing, size = size, halign = "center", valign = "center");
   }
 }
