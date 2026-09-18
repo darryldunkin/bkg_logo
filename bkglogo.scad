@@ -26,9 +26,9 @@ clr_base = "#000000";      // color
 // Text
 clr_text = "#FFFFFF";      // color
 // Highlights
-clr_highlights = "#7F7E83";// color
+clr_highlights = "#FFFFFF";// color
 // Knuckle
-clr_knuckle = "#FCE300";   // color
+clr_knuckle = "#FFFFFF";   // color
 
 /* [Font] */
 // Font name
