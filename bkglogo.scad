@@ -37,7 +37,7 @@ font_name = "Open Sans:bold";// font
 font_size = 44;              // [10:60]
 
 // Default viewpoint for preview
-//$vpr = [51, 0, 324]; $vpt = [1.4, 2.8, 3.1]; $vpd = 160;
+$vpr = [51, 0, 324]; $vpt = [1.4, 2.8, 3.1]; $vpd = 160;
 // DEBUG - Top-down viewpoint for alignment checking
 //$vpr = [0, 0, 0]; $vpt = [0, 0, 0]; $vpd = 200;
 
