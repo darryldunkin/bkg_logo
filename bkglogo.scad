@@ -2,13 +2,13 @@
 // Your registered callsign
 callsign = "KD9ZZK"; // 6
 // Your BKG number
-number = 14;         // [1:99999]
+number = 15;         // [1:99999]
 // The frequency to display
 freq = "144.025";    // 7
 
 /* [Sizing] */
 // The size in mm
-size = 70;           // [70:256]
+size = 150;           // [70:256]
 // How thick to print in total
 height = 2.5;        // [1.5:0.5:8]
 // Ratio of tall the image stands above the base
@@ -30,6 +30,12 @@ clr_highlights = "#7F7E83";// color
 // Knuckle
 clr_knuckle = "#FCE300";   // color
 
+/* [Font] */
+// Font name
+font_name = "Open Sans:bold";// font
+// Font size for outer elements only
+font_size = 44;              // [10:60]
+
 // Default viewpoint for preview
 //$vpr = [51, 0, 324]; $vpt = [1.4, 2.8, 3.1]; $vpd = 160;
 // DEBUG - Top-down viewpoint for alignment checking
@@ -42,7 +48,7 @@ extrude = height-mid; // Extrude height
 // The primary logic is here
 module core_model() {
   // Reference image from original SVG for placement
-  // reference_logo(2);
+  // reference_logo(1);
   color(clr_base)
     cylinder(d = size, h = mid, $fn = 128);
 
@@ -85,14 +91,15 @@ module reference_logo(i) {
 module badge() {
   color(clr_text) linear_extrude(extrude) {
     // Frequency
-    curved_text(freq, "Open Sans:bold", 34, 1, -40, 12, -254);
-    curved_text("MHz", "Open Sans:bold", 35, 1, 19.2, 47.4, -252);
-    // Callsign
+    curved_text(freq, font_name, font_size*0.8, 1, -40, 12, -238);
+    curved_text("MHz", font_name, font_size*0.8, 1, 19.2, 47.4, -238);
+    // Callsign - Scale to available width
     translate([0,-65])
-    text(str(callsign," | #",number), size = 34, halign = "center", valign = "center", font="Open Sans:bold");
-    curved_text("BRASS", "Open Sans:bold", 43, 1, 80, 28, 218);
-    curved_text("KNUCKLE", "Open Sans:bold", 43, 1, 25, -47, 218);
-    curved_text("GANG", "Open Sans:bold", 43, 1, -51, -94, 218);
+      resize([330], auto = true)
+        text(str(callsign," | #",number), size = 30, halign = "center", valign = "center", font="Open Sans:bold");
+    curved_text("BRASS", font_name, font_size, 1, 80, 28, 239);
+    curved_text("KNUCKLE", font_name, font_size, 1, 25, -47, 239);
+    curved_text("GANG", font_name, font_size, 1, -51, -94, 239);
   translate([0,-127])
     text("BKG", size = 62, halign = "center", valign = "center", font= "Platypi:bold", spacing = 1.06);
   }
@@ -114,7 +121,7 @@ module curved_text(string, font, size, spacing, start, end, offset){
   for (i = [0 : length - 1]) {
     rotate([0, 0, (start+(degrees*i))])
       translate([0,offset])
-           text(string[i], font = font, spacing = spacing, size = size, halign = "center");
+           text(string[i], font = font, spacing = spacing, size = size, halign = "center", valign = "center");
   }
 }
 
