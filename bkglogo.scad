@@ -30,6 +30,7 @@ clr_highlights = "#7F7E83";// color
 // Knuckle
 clr_knuckle = "#FCE300";   // color
 
+
 // Default viewpoint for preview
 //$vpr = [51, 0, 324]; $vpt = [1.4, 2.8, 3.1]; $vpd = 160;
 // DEBUG - Top-down viewpoint for alignment checking
@@ -78,17 +79,16 @@ module reference_logo() {
 module badge() {
   color(clr_text) linear_extrude(extrude) {
     // Frequency
-    curved_text(freq, "Noto Sans Miao", 35, 1, -39, 12, -253);
-    curved_text("MHz", "Noto Sans Miao", 35, 1, 19.2, 47.4, -252);
+    curved_text(freq, "Open Sans:bold", 34, 1, -40, 12, -254);
+    curved_text("MHz", "Open Sans:bold", 35, 1, 19.2, 47.4, -252);
     // Callsign
     translate([0,-65])
-    text(str(callsign," | #",number), size = 35, halign = "center", valign = "center", font="Chivo:bold");
-    //curved_text("BRASS KNUCKLE GANG", "Chivo:bold", 44, 1, 80, -93, 216);
-    curved_text("BRASS", "Chivo:bold", 44, 1, 80, 30, 217);
-    curved_text("KNUCKLE", "Chivo:bold", 44, 1, 25, -47, 217);
-    curved_text("GANG", "Chivo:bold", 44, 1, -51, -94, 217);
-  translate([0,-128])
-    text("BKG", size = 65, halign = "center", valign = "center", font= "Rosario:bold", spacing = 1.1);
+    text(str(callsign," | #",number), size = 34, halign = "center", valign = "center", font="Open Sans:bold");
+    curved_text("BRASS", "Open Sans:bold", 43, 1, 80, 28, 218);
+    curved_text("KNUCKLE", "Open Sans:bold", 43, 1, 25, -47, 218);
+    curved_text("GANG", "Open Sans:bold", 43, 1, -51, -94, 218);
+  translate([0,-127])
+    text("BKG", size = 62, halign = "center", valign = "center", font= "Rosario:bold", spacing = 1.06);
   }
   color(clr_highlights) linear_extrude(extrude) {
     ring(600, 22); // This changes the scale, do not touch
