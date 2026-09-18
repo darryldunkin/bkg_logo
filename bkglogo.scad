@@ -42,7 +42,7 @@ extrude = height-mid; // Extrude height
 // The primary logic is here
 module core_model() {
   // Reference image from original SVG for placement
-  // reference_logo();
+  // reference_logo(2);
   color(clr_base)
     cylinder(d = size, h = mid, $fn = 128);
 
@@ -67,11 +67,18 @@ module core_model() {
       badge();
 }
 
-module reference_logo() {
-  // Top-down 
-  # translate([0, -0, height]) linear_extrude(1)
-      resize([size+1.2,size+14])
-        import("bkglogo.svg", center=true);
+module reference_logo(i) {
+  // Different options for comparison
+  if (i == 1) {
+    # translate([0, -0, height]) linear_extrude(1)
+        resize([size+1.2,size+14])
+          import("bkglogo.svg", center=true);
+  } else {
+    // OG is a different rtaio
+    # translate([0, -2.9, height]) linear_extrude(1)
+        resize([size+1.2,size+6])
+          import("bkglogo-og.svg", center=true);
+  }
 }
 
 // The extruded components, separated by color
