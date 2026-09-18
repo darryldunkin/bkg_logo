@@ -8,7 +8,7 @@ freq = "144.025";    // 7
 
 /* [Sizing] */
 // The size in mm
-size = 150;           // [70:256]
+size = 70;           // [70:256]
 // How thick to print in total
 height = 2.5;        // [1.5:0.5:8]
 // Ratio of tall the image stands above the base
