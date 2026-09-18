@@ -18,7 +18,7 @@ ratio = 0.7;         // [0.5:0.1:.9]
 // Any attached accessories
 type = "coin";       // [coin, chain, strap, buckle]
 // How wide the strap is (for strap/buckle)
-strap_width = 1;     // [0.25:0.25:4]
+strap_width = 1;     // [0.25:0.25:3]
 
 /* [Colors] */
 // Base plate and accessories
