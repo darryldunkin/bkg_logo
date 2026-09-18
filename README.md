@@ -32,6 +32,7 @@ https://github.com/nelsonjchen/unofficial-makerworld-parametric-model-maker-open
 
 ## TODO
 
+* Inputs - MW does not like fractions - Switch to fixed lists
 * Fonts - Limited font support, need to find something appropriate without path-tracing
 * PMM - Does not like decimals
 * OG support - This can be optional, the outline just needs to be drawn.
