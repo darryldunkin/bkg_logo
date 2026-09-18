@@ -25,6 +25,10 @@ All tested on a Bambu P1S, PETG, on the 0.04mm nozzle. The minimum size I genera
 * Print quality: 0.20 standard works
 * Ratio: At least 3 layers minimum for the embossed area. The default ratio of 0.7 for 2.5mm 
 
+# Contributing
+
+**PLEASE** - I put a lot of personal thought and effort into building this and prefer to retain the humanity of the limited projects I do make public. If you are contributing, I can only request that you not leverge any AI tooling with the existing code and learn the details of OpenSCAD. The amount of possibilities and creative choices it may open up to you are completely worth the time and effort, just as much as learning CW or how to play an instrument. Thank you!
+
 # Development Notes
 
 The parametric model maker is mysterious, here are some hidden features:
@@ -32,5 +36,4 @@ https://github.com/nelsonjchen/unofficial-makerworld-parametric-model-maker-open
 
 ## TODO
 
-* Fonts - Limited font support, need to find something appropriate without path-tracing
 * OG support - This can be optional, the outline just needs to be drawn.
