@@ -4,8 +4,6 @@ An OpenSCAD module for generating a BKG logo and accessories.
 
 Recommend using the latest development snapshots: https://openscad.org/downloads.html#snapshots
 
-This tool was used to convert the complex shapes to paths: https://printnexus.io/tools/svg-to-openscad-converter
-
 ## Usage
 
 1. Install OpenSCAD
@@ -22,18 +20,21 @@ This tool was used to convert the complex shapes to paths: https://printnexus.io
 All tested on a Bambu P1S, PETG, on the 0.04mm nozzle. The minimum size I generally work with is **7cm**. This gives at least two lines width of printing for the smallest components.
 
 * Size: As big as your print bed can handle, aware of accessories - printing at 45 degrees may give you enough room for clips or other attachments if you are going big
-* Print quality: 0.20 standard works
+* Print quality: 0.20 standard works fine, the 0.02mm nozzle should be able to print even smaller while maintaining details
 * Ratio: At least 3 layers minimum for the embossed area. The default ratio of 0.7 for 2.5mm 
 
 # Contributing
 
-**PLEASE** - I put a lot of personal thought and effort into building this and prefer to retain the humanity of the limited projects I do make public. If you are contributing, I can only request that you not leverge any AI tooling with the existing code and learn the details of OpenSCAD. The amount of possibilities and creative choices it may open up to you are completely worth the time and effort, just as much as learning CW or how to play an instrument. Thank you!
+**PLEASE** - I put a lot of personal thought and effort into building this and prefer to retain the humanity of the limited projects I do make public. If you are contributing, I can only request that you limit the use of AI tooling with the existing code and learn the details of OpenSCAD. The amount of possibilities and creative choices it may open up to you are completely worth the time and effort, just as much as learning CW or how to play an instrument. Thank you!
 
 # Development Notes
+
+This tool was used to convert the complex shapes to paths: https://printnexus.io/tools/svg-to-openscad-converter
 
 The parametric model maker is mysterious, here are some hidden features:
 https://github.com/nelsonjchen/unofficial-makerworld-parametric-model-maker-openscad-docs/blob/main/docs/pmm-openscad-api.md
 
 ## TODO
 
+* Font alignment - Center-vertical provides the most flexibility in font and size. The period in the frequency is centered, but fixing it reliably 
 * OG support - This can be optional, the outline just needs to be drawn.
