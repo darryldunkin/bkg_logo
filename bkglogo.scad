@@ -4,21 +4,21 @@ callsign = "KD9ZZK"; // 6
 // Your BKG number
 number = 14;         // [1:99999]
 // The frequency to display
-freq = "144.025";    // 8
+freq = "144.025";    // 7
 
 /* [Sizing] */
 // The size in mm
 size = 70;           // [70:256]
 // How thick to print in total
-height = 2.5;        // [2:8]
-// How tall the image is in comparison to the base
-ratio = 0.7;         //[0.5:.9]
+height = 2.5;        // [1.5:0.5:8]
+// Ratio of tall the image stands above the base
+ratio = 0.7;         // [0.5:0.1:.9]
 
 /* [Style] */
 // Any attached accessories
 type = "coin";       // [coin, chain, strap, buckle]
 // How wide the strap is (for strap/buckle)
-strap_width = 1;     // [0.25:3]
+strap_width = 1;     // [0.25:0.25:4]
 
 /* [Colors] */
 // Base plate and accessories
@@ -29,7 +29,6 @@ clr_text = "#FFFFFF";      // color
 clr_highlights = "#7F7E83";// color
 // Knuckle
 clr_knuckle = "#FCE300";   // color
-
 
 // Default viewpoint for preview
 //$vpr = [51, 0, 324]; $vpt = [1.4, 2.8, 3.1]; $vpd = 160;
