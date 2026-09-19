@@ -51,6 +51,8 @@ extrude = height-mid; // Extrude height
 module core_model() {
   // Reference image from original SVG for placement
   // reference_logo(1);
+
+  // The base plate
   color(clr_base)
     cylinder(d = size, h = mid, $fn = 128);
 
@@ -91,6 +93,7 @@ module reference_logo(i) {
 
 // The extruded components, separated by color
 module badge() {
+  // Text
   color(clr_text) linear_extrude(extrude) {
     // Frequency
     curved_text(freq, font_name, font_size*0.8, 1, -40, 12, -238);
@@ -102,9 +105,10 @@ module badge() {
     curved_text("BRASS", font_name, font_size, 1, 80, 28, 239);
     curved_text("KNUCKLE", font_name, font_size, 1, 25, -47, 239);
     curved_text("GANG", font_name, font_size, 1, -51, -94, 239);
-  translate([0,-127])
-    text("BKG", size = 62, halign = "center", valign = "center", font= "Platypi:bold", spacing = 1.06);
+    translate([0,-127])
+      text("BKG", size = 62, halign = "center", valign = "center", font= "Platypi:bold", spacing = 1.06);
   }
+  // Highlights
   color(clr_highlights) linear_extrude(extrude) {
     ring(600, 22); // This changes the scale, do not touch
     ring(563, 12);
@@ -112,6 +116,7 @@ module badge() {
     curved_line(203, 219, 4, 234);
     curved_line(317, 336, 4, 234);
   }
+  // Knuckle
   color(clr_knuckle) linear_extrude(extrude)
     knuckle();
 }
