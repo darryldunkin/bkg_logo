@@ -2,7 +2,7 @@
 // Your registered callsign
 callsign = "KD9ZZK"; // 6
 // Your BKG number
-number = 15;         // [1:99999]
+number = 1234;       // [1:99999]
 // The frequency to display
 freq = "144.025";    // 7
 
@@ -17,8 +17,10 @@ ratio = 0.7;         // [0.5:0.1:.9]
 /* [Style] */
 // Any attached accessories
 type = "coin";       // [coin, chain, strap, buckle]
-// How wide the strap is (for strap/buckle)
-strap_width = 1;     // [0.25:0.25:3]
+// How wide the strap is (for strap and buckle)
+strap_width = 1;     // [0.5:0.25:3]
+// Open or closed
+open_strap = true;
 
 /* [Colors] */
 // Base plate and accessories
@@ -37,7 +39,7 @@ font_name = "Open Sans:bold";// font
 font_size = 44;              // [10:60]
 
 // Default viewpoint for preview
-$vpr = [51, 0, 324]; $vpt = [1.4, 2.8, 3.1]; $vpd = 300;
+//$vpr = [51, 0, 324]; $vpt = [1.4, 2.8, 3.1]; $vpd = 300;
 // DEBUG - Top-down viewpoint for alignment checking
 //$vpr = [0, 0, 0]; $vpt = [0, 0, 0]; $vpd = 200;
 
@@ -118,9 +120,13 @@ module badge() {
 module curved_text(string, font, size, spacing, start, end, offset){
   length = len(string);
   degrees = ((end - start) / length); // Degrees of spacing per-character
+  correction = 0;
   for (i = [0 : length - 1]) {
+    // Offset the shorter characters
+    correction = string[i] == "." ? -(size/2.5) :
+       (string[i] == "z" ? -(size/8) : 0);
     rotate([0, 0, (start+(degrees*i))])
-      translate([0,offset])
+      translate([0,offset+correction])
            text(string[i], font = font, spacing = spacing, size = size, halign = "center", valign = "center");
   }
 }
@@ -190,12 +196,14 @@ module buckle(width = 1, rotate = 0, offset) {
   length = 20;          // How far into the disc we go
   rotate([0, 0, rotate])
     rotate_mirror() {
-      translate([0, offset, 0]) {
+      translate([0, offset+1, 0]) {
         // Retainer notch - Fixed width and depth
-        translate([-width/2-1, 7.2, 0]) {
-          square([4, 2.5], center=true);
-          translate([2,0,0])
-            circle(d=2.5, $fn = 20);
+        if ( open_strap ) {
+          translate([-width/2-1, 7.2, 0]) {
+            square([4, 2.5], center=true);
+            translate([2,0,0])
+              circle(d=2.5, $fn = 20);
+          }
         }
         difference() {
           // Rounded outside
@@ -205,7 +213,9 @@ module buckle(width = 1, rotate = 0, offset) {
           translate([0, 15-thickness, 0])
             square([width+6, 7], center=true);
           // Strap gap - 2.5mm
-          translate([-thickness+3, 4.7]) square([width+(thickness*2), 2.5], center=true);
+          if ( open_strap ) {
+            translate([-thickness+3, 4.7]) square([width+(thickness*2), 2.5], center=true);
+          }
         }
       }
     }
