@@ -19,7 +19,7 @@ ratio = 0.7;         // [0.5:0.1:.9]
 type = "coin";       // [coin, chain, strap, buckle, plain]
 // How wide the strap is (for strap and buckle)
 strap_width = 1;     // [0.5:0.25:3]
-// Open or closed
+// Open or closed strap
 open_strap = true;
 
 /* [Colors] */
@@ -66,7 +66,7 @@ module core_model() {
         buckle(width = strap_width, offset = (size/2)-6, rotate = 0);
       }
       else if (type == "chain") {
-        chain(height = mid, offset = size/2+3);
+        chain(height = mid, offset = size/2-2);
       } else {
         // Default coin, no accessories
       }
@@ -180,13 +180,11 @@ module knuckle() {
 
 // Generate rings to hang from
 module chain(size = 10, height = 2.5, offset = 0) {
-  copy_mirror()
-    rotate([0, 0, +120])
-      translate([offset,0,-height/2])
-        difference() {
-          circle(r = size, $fn = 50);
-          translate([0,0,-.1]) circle(r = size*0.7, $fn = 50);
-        }
+  translate([-height/2, offset])
+    difference() {
+      circle(r = size, $fn = 50);
+      translate([0,0,-.1]) circle(r = size*0.7, $fn = 50);
+    }
 }
 
 // Mirror a copy of the first ring to the other side
