@@ -235,3 +235,26 @@ module rotate_mirror() {
 }
 
 core_model();
+
+/*
+// Settings for a multi-plate export
+// Default plate
+module mw_plate_1() {
+  core_model();
+}
+
+// Belt
+module mw_plate_2() {
+  core_model(type = "buckle", open_strap = false);
+}
+
+// Strap
+module mw_plate_3() {
+  core_model(type = "strap", open_strap = true);
+}
+
+// Coinage
+module mw_plate_4() {
+  core_model(type = "coin", font_name = "Press Start 2P:style=Regular", font_size = 29);
+}
+*/
