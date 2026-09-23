@@ -16,7 +16,7 @@ ratio = 0.7;         // [0.5:0.1:.9]
 
 /* [Style] */
 // Any attached accessories
-type = "coin";       // [coin, chain, strap, buckle]
+type = "coin";       // [coin, chain, strap, buckle, plain]
 // How wide the strap is (for strap and buckle)
 strap_width = 1;     // [0.5:0.25:3]
 // Open or closed
@@ -53,21 +53,23 @@ module core_model() {
   // reference_logo(1);
 
   // The base plate
-  color(clr_base)
-    cylinder(d = size, h = mid, $fn = 128);
+  if (type != "plain") {
+    color(clr_base)
+      cylinder(d = size, h = mid, $fn = 128);
 
-  // Accessories are extruded separately
-  color(clr_base) linear_extrude(mid) {
-    if (type == "buckle") {
-      buckle(width = strap_width, offset = (size/2)-4, rotate = 90);
-    }
-    else if (type == "strap") {
-      buckle(width = strap_width, offset = (size/2)-6, rotate = 0);
-    }
-    else if (type == "chain") {
-      chain(height = mid, offset = size/2+3);
-    } else {
-      // Default coin, no accessories
+    // Accessories are extruded separately
+    color(clr_base) linear_extrude(mid) {
+      if (type == "buckle") {
+        buckle(width = strap_width, offset = (size/2)-4, rotate = 90);
+      }
+      else if (type == "strap") {
+        buckle(width = strap_width, offset = (size/2)-6, rotate = 0);
+      }
+      else if (type == "chain") {
+        chain(height = mid, offset = size/2+3);
+      } else {
+        // Default coin, no accessories
+      }
     }
   }
 
