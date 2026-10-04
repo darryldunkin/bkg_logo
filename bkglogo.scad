@@ -5,10 +5,12 @@ callsign = "KD9ZZK"; // 6
 number = 1234;       // [1:99999]
 // The frequency to display
 freq = "144.025";    // 7
+// OG Location
+location = "WA";    // 2
 
 /* [Sizing] */
 // The size in mm
-size = 70;           // [70:256]
+size = 70;           // [50:256]
 // How thick to print in total
 height = 2.5;        // [1.5:0.5:8]
 // Ratio of tall the image stands above the base
@@ -50,7 +52,7 @@ extrude = height-mid; // Extrude height
 // The primary logic is here
 module core_model() {
   // Reference image from original SVG for placement
-  // reference_logo(1);
+  // reference_logo(2);
 
   // The base plate
   if (type != "plain") {
@@ -74,22 +76,24 @@ module core_model() {
   }
 
   // The badge itself - Scaled and placed vertically
-  resize([size*0.98, size*0.98])
-    translate([0, 0, mid])
-      badge();
+  translate([0, 0, mid])
+    resize([0,0, extrude]) // Fix z
+      resize([size*0.98], auto = true) // Scale to x
+        badge();
+
 }
 
 module reference_logo(i) {
   // Different options for comparison
   if (i == 1) {
-    # translate([0, -0, height]) linear_extrude(1)
-        resize([size+1.2,size+14])
-          import("bkglogo.svg", center=true);
+    translate([0, -0, height]) linear_extrude(1)
+      resize([size+1.2,size+14])
+        import("bkglogo.svg", center=true);
   } else {
     // OG is a different rtaio
-    # translate([0, -2.9, height]) linear_extrude(1)
-        resize([size+1.2,size+6])
-          import("bkglogo-og.svg", center=true);
+    translate([0, -2.5, height]) linear_extrude(1)
+      resize([size+1.2,size+6])
+       import("bkglogo-og.svg", center=true);
   }
 }
 
@@ -109,18 +113,25 @@ module badge() {
     curved_text("GANG", font_name, font_size, 1, -51, -94, 239);
     translate([0,-127])
       text("BKG", size = 62, halign = "center", valign = "center", font= "Platypi:bold", spacing = 1.06);
+      
+    curved_text("OG", font_name, font_size, 1, -51, -94, 300);
   }
   // Highlights
   color(clr_highlights) linear_extrude(extrude) {
-    ring(600, 22); // This changes the scale, do not touch
+    ring(600, 22); // This is the max width and changes the scale, do not touch
     ring(563, 12);
     ring(402, 14);
-    curved_line(203, 219, 4, 234);
-    curved_line(317, 336, 4, 234);
+    curved_line(203, 220, 4, 234);
+    curved_line(317, 334, 4, 234);
+    // OG
+    curved_line(250, 290, 6, 350);
+    curved_text("WA OG", font_name, font_size*0.8, 1, -15, 24, -320);
   }
   // Knuckle
-  color(clr_knuckle) linear_extrude(extrude)
+  color(clr_knuckle) linear_extrude(extrude){
     knuckle();
+  }
+  
 }
 
 // Curve text around the center, positive direction for cw, neg for ccw
@@ -140,7 +151,7 @@ module curved_text(string, font, size, spacing, start, end, offset){
 
 // Curved line - Assume CW rotation
 module curved_line(start, end, width, offset) {
-  steps = (end - start)/width; // Smoothness
+  steps = (end - start)/(width/8); // Smoothness
   for (i = [0 : steps]) {
     a1 = start + (end - start) * (i / steps);
     a2 = start + (end - start) * ((i+1) / steps);
