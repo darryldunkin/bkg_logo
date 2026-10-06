@@ -128,7 +128,7 @@ module badge() {
       text("BKG", size = 62, halign = "center", valign = "center", font= "Platypi:bold", spacing = 1.06);
     // OG text
     if (location != "") {
-      curved_text(str(location, " ", "OG"), font_name, font_size*0.85, 1, -14, 23, -309);
+      curved_text(str(location, " ", "OG"), font_name, font_size*0.80, 1, -14, 22, -309);
     }
   }
   // Highlights
