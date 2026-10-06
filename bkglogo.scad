@@ -72,7 +72,13 @@ module core_model() {
         buckle(width = strap_width, offset = (size/2)-4, rotate = 90);
       }
       else if (type == "strap") {
-        buckle(width = strap_width, offset = (size/2)-6, rotate = 0);
+        // OG tag extends the base
+        if (location != "") {
+          translate([0, -size*0.04])
+            buckle(width = strap_width, offset = (size/2)+2, rotate = 0);
+        } else {
+          buckle(width = strap_width, offset = (size/2)-6, rotate = 0);
+        }
       }
       else if (type == "chain") {
         chain(height = mid, offset = size/2-2);
@@ -233,7 +239,7 @@ module copy_mirror() {
 module buckle(width = 1, rotate = 0, offset) {
   width = width * 25.4; // Convert to mm
   thickness = 7;        // Width around the outside
-  radius = .1;           // Roundness
+  radius = .1;          // Roundness
   length = 20;          // How far into the disc we go
   rotate([0, 0, rotate])
     rotate_mirror() {
