@@ -56,8 +56,14 @@ module core_model() {
 
   // The base plate
   if (type != "plain") {
-    color(clr_base)
+    color(clr_base) {
       cylinder(d = size, h = mid, $fn = 128);
+      // Extend the base for OG  
+      if (location != "") {
+        $fn = 32;
+        linear_extrude(mid) curved_line(252.4, 287.2, 5.2, 35.5);
+      }
+    }
 
     // Accessories are extruded separately
     color(clr_base) linear_extrude(mid) {
@@ -115,7 +121,7 @@ module badge() {
       text("BKG", size = 62, halign = "center", valign = "center", font= "Platypi:bold", spacing = 1.06);
     // OG text
     if (location != "") {
-      curved_text(str(location, " ", "OG"), font_name, font_size*0.9, 1, -14, 23, -310);
+      curved_text(str(location, " ", "OG"), font_name, font_size*0.85, 1, -14, 23, -309);
     }
   }
   // Highlights
@@ -126,6 +132,7 @@ module badge() {
     curved_line(317, 334, 4, 234);
     // OG border
     if (location != "") {
+      // Bottom line
       curved_line(251.5, 288, 4.5, 342.1);
       // Partial side rings
       copy_mirror() translate([-92, -295 ]) rotate([0,0,-25])
