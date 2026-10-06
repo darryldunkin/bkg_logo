@@ -6,7 +6,7 @@ number = 1234;       // [1:99999]
 // The frequency to display
 freq = "144.025";    // 7
 // OG Location
-location = "WA";    // 2
+location = "";       // 2
 
 /* [Sizing] */
 // The size in mm
@@ -113,25 +113,41 @@ module badge() {
     curved_text("GANG", font_name, font_size, 1, -51, -94, 239);
     translate([0,-127])
       text("BKG", size = 62, halign = "center", valign = "center", font= "Platypi:bold", spacing = 1.06);
-      
-    curved_text("OG", font_name, font_size, 1, -51, -94, 300);
+    // OG text
+    if (location != "") {
+      curved_text(str(location, " ", "OG"), font_name, font_size*0.9, 1, -14, 23, -310);
+    }
   }
   // Highlights
   color(clr_highlights) linear_extrude(extrude) {
-    ring(600, 22); // This is the max width and changes the scale, do not touch
     ring(563, 12);
     ring(402, 14);
     curved_line(203, 220, 4, 234);
     curved_line(317, 334, 4, 234);
-    // OG
-    curved_line(250, 290, 6, 350);
-    curved_text("WA OG", font_name, font_size*0.8, 1, -15, 24, -320);
+    // OG border
+    if (location != "") {
+      curved_line(251.5, 288, 4.5, 342.1);
+      // Partial side rings
+      copy_mirror() translate([-92, -295 ]) rotate([0,0,-25])
+        difference() {
+          ring(76, 18);
+          translate([0,-50]) rotate([0,0,3]) square([50,100]);
+          translate([-30,30]) rotate([0,0,3]) square([30,10]);
+        }
+        // Outer ring with the bottom portion removed
+        difference() {
+          ring(600, 22);
+          translate([0, -300, 0]) circle(120);
+        }
+    } else {
+      // This is the max width and changes the scale, do not touch
+      ring(600, 22);
+    }
   }
   // Knuckle
   color(clr_knuckle) linear_extrude(extrude){
     knuckle();
   }
-  
 }
 
 // Curve text around the center, positive direction for cw, neg for ccw
