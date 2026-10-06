@@ -58,10 +58,11 @@ module core_model() {
   if (type != "plain") {
     color(clr_base) {
       cylinder(d = size, h = mid, $fn = 128);
-      // Extend the base for OG  
+      // Extend the base for OG
       if (location != "") {
         $fn = 32;
-        linear_extrude(mid) curved_line(252.4, 287.2, 5.2, 35.5);
+        linear_extrude(mid)
+          curved_line(252, 286.5, size/13, size/2, smoothness=20);
       }
     }
 
@@ -173,8 +174,9 @@ module curved_text(string, font, size, spacing, start, end, offset){
 }
 
 // Curved line - Assume CW rotation
-module curved_line(start, end, width, offset) {
-  steps = (end - start)/(width/8); // Smoothness
+module curved_line(start, end, width, offset, smoothness = undef) {
+  steps = is_undef(smoothness) ? (end - start)/(width/8) : smoothness;
+  
   for (i = [0 : steps]) {
     a1 = start + (end - start) * (i / steps);
     a2 = start + (end - start) * ((i+1) / steps);
