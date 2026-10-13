@@ -1,4 +1,5 @@
 /* [Personalization] */
+style = "personal";  // [personal, generic, proper]
 // Your registered callsign
 callsign = "KD9ZZK"; // 6
 // Your BKG number
@@ -117,10 +118,29 @@ module badge() {
     // Frequency
     curved_text(freq, font_name, font_size*0.8, 1, -40, 12, -238);
     curved_text("MHz", font_name, font_size*0.8, 1, 19.2, 47.4, -238);
-    // Callsign - Scale to available width
-    translate([0,-65])
-      resize([330], auto = true)
-        text(str(callsign," | #",number), size = 30, halign = "center", valign = "center", font="Open Sans:bold");
+    if (style == "personal") {
+      // Callsign - Scale to available width
+      translate([0,-65])
+        resize([330], auto = true)
+          text(str(callsign," | #",number), size = 30, halign = "center", valign = "center", font="Open Sans:bold");
+    } else if (style == "generic") {
+      // Generic dashes
+      copy_mirror() translate([-35, -60])
+        hull() {
+          circle(r,12);
+          translate([-50,0,0])
+            circle(r,12);
+        }
+    } else if (style == "proper") {
+      // Proper Roger
+      translate([35, -50])
+        hull() {
+          circle(r,12);
+            translate([-70,0,0])
+              circle(r,12);
+        }
+      copy_mirror() translate([-65, -75]) circle(r,14);
+    }
     curved_text("BRASS", font_name, font_size, 1, 80, 28, 239);
     curved_text("KNUCKLE", font_name, font_size, 1, 25, -47, 239);
     curved_text("GANG", font_name, font_size, 1, -51, -94, 239);

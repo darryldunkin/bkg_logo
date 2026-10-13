@@ -9,7 +9,7 @@ Recommend using the latest development snapshots: https://openscad.org/downloads
 1. Install OpenSCAD
 2. Open the file **bkglogo.scad**
 3. Change any parameters in the customizer, if **Automatic Pefresh** is checked, the preview will update immediately
-4. When it looks good, press **F6** to render, this can take up to 5 minutes
+4. When it looks good, press **F6** to render
 5. Press **F7** to export the STL
 6. Import the STL into your slicer
 8. Color it.
@@ -36,5 +36,4 @@ https://github.com/nelsonjchen/unofficial-makerworld-parametric-model-maker-open
 
 ## TODO
 
-* Font alignment - Center-vertical provides the most flexibility in font and size. The period in the frequency is centered, but fixing it reliably 
-* OG support - This can be optional, the outline just needs to be drawn.
+Nothing currently, feel free to open an issue or contact me on Discord if you have any requests or suggestions.
