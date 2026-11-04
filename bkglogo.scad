@@ -70,13 +70,14 @@ module core_model() {
     // Accessories are extruded separately
     color(clr_base) linear_extrude(mid) {
       if (type == "buckle") {
-        buckle(width = strap_width, offset = (size/2)-4, rotate = 90);
+        buckle(width = 
+        _width, offset = (size/2)-4, rotate = 90);
       }
       else if (type == "strap") {
         // OG tag extends the base
         if (location != "") {
           translate([0, -size*0.04])
-            buckle(width = strap_width, offset = (size/2)+2, rotate = 0);
+            buckle(width = strap_width, offset = (size/2)-3, rotate = 0);
         } else {
           buckle(width = strap_width, offset = (size/2)-6, rotate = 0);
         }
